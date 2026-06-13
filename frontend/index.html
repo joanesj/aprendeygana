@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AprendeYEmprende</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="icono.jpg" type="image/jpeg">
+</head>
+<body>
+
+    <header id="main-nav" class="app-header hidden">
+        <span class="logo" onclick="switchView('view-hub')">AprendeYEmprende</span>
+        <div class="nav-right">
+            <span id="user-wallet" class="wallet">$0.00</span>
+            <button onclick="logout()" class="btn-logout">Salir</button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ── REGISTRO ── -->
+        <section id="view-register" class="split-auth-card">
+            <div class="auth-left">
+                <div class="auth-logo">✦ AprendeYEmprende</div>
+                <div class="auth-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <form id="registerForm" class="auth-form">
+                    <div class="input-pill">
+                        <span>👤</span>
+                        <input type="text" id="reg-name" required placeholder="NOMBRE COMPLETO">
+                    </div>
+                    <div class="input-pill">
+                        <span>✉️</span>
+                        <input type="email" id="reg-email" required placeholder="CORREO ELECTRÓNICO">
+                    </div>
+                    <div class="input-pill">
+                        <span>🔒</span>
+                        <input type="password" id="reg-password" required placeholder="CONTRASEÑA">
+                    </div>
+                    <button type="submit" class="btn btn-pill btn-dark">REGISTRARSE</button>
+                </form>
+                <div class="auth-dots">
+                    <span></span><span class="active"></span><span></span>
+                </div>
+            </div>
+            <div class="auth-right">
+                <div class="hero-content">
+                    <h2>Únete.</h2>
+                    <p>Empieza a aprender y generar ingresos desde cualquier lugar con nuestras micro-tareas.</p>
+                    <p class="hero-switch">¿Ya eres miembro? <a href="#" onclick="switchView('view-login')">Inicia sesión</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── LOGIN ── -->
+        <section id="view-login" class="split-auth-card hidden">
+            <div class="auth-left">
+                <div class="auth-logo">✦ AprendeYEmprende</div>
+                <div class="auth-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <form id="loginForm" class="auth-form">
+                    <div class="input-pill">
+                        <span>✉️</span>
+                        <input type="email" id="login-email" placeholder="CORREO ELECTRÓNICO" required>
+                    </div>
+                    <div class="input-pill">
+                        <span>🔒</span>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-pill btn-dark">ENTRAR</button>
+                    <div class="auth-options">
+                        <label><input type="checkbox"> Recordarme</label>
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+                    </div>
+                </form>
+                <div class="auth-dots">
+                    <span class="active"></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="auth-right">
+                <nav class="hero-nav">
+                    <a href="#">ABOUT</a>
+                    <a href="#">CONTACT</a>
+                </nav>
+                <div class="hero-content">
+                    <h2>Welcome.</h2>
+                    <p>Inicia sesión para continuar tus cursos y retirar tus ganancias.</p>
+                    <p class="hero-switch">¿No eres miembro? <a href="#" onclick="switchView('view-register')">Regístrate ahora</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HUB PRINCIPAL ── -->
+        <section id="view-hub" class="hidden">
+            <div class="welcome-banner">
+                <h2>¡Hola de nuevo, <span id="hub-username">usuario</span>!</h2>
+                <p>¿Qué quieres hacer hoy para crecer?</p>
+            </div>
+            <div class="hub-grid">
+                <div class="hub-card" onclick="switchView('view-courses')">
+                    <div class="hub-icon">📚</div>
+                    <h3>Aprender</h3>
+                    <p>Cursos cortos de alta demanda que no consumen tus datos.</p>
+                </div>
+                <div class="hub-card" onclick="switchView('view-tasks')">
+                    <div class="hub-icon">💰</div>
+                    <h3>Bolsa de Micro-tareas</h3>
+                    <p>Genera ingresos inmediatos con tareas digitales simples.</p>
+                </div>
+                <div class="hub-card" onclick="switchView('view-hardware')">
+                    <div class="hub-icon">💻</div>
+                    <h3>Financiar Laptop</h3>
+                    <p>Revisa tu tracción y solicita tu equipo reacondicionado.</p>
+                </div>
+                <div class="hub-card" onclick="loadDashboardData()">
+                    <div class="hub-icon">👤</div>
+                    <h3>Mi Panel / Perfil</h3>
+                    <p>Configura tus pagos, revisa estadísticas e historial de ingresos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CURSOS ── -->
+        <section id="view-courses" class="hidden">
+            <div class="section-header">
+                <button class="btn-back" onclick="switchView('view-hub')">← Volver</button>
+                <h2>Mis Cursos</h2>
+            </div>
+            <div class="course-list" id="courses-container">
+                <!-- Se carga dinámicamente desde la API -->
+                <div class="course-node card">
+                    <span class="badge badge-tech">IA Operativa</span>
+                    <h3>Introducción a Prompts Básicos</h3>
+                    <p class="course-meta">5 módulos • Texto y Audio (2MB tot.)</p>
+                    <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
+                    <button class="btn btn-primary" onclick="openLesson()">Continuar módulo 4</button>
+                </div>
+                <div class="course-node card">
+                    <span class="badge badge-support">Soporte Técnico</span>
+                    <h3>Atención al Cliente Digital</h3>
+                    <p class="course-meta">4 módulos • Optimizado para móviles</p>
+                    <div class="progress-bar"><div class="progress" style="width: 0%"></div></div>
+                    <button class="btn btn-outline" onclick="openLesson()">Empezar Curso</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MICRO-TAREAS ── -->
+        <section id="view-tasks" class="hidden">
+            <div class="section-header">
+                <button class="btn-back" onclick="switchView('view-hub')">← Volver</button>
+                <h2>Tareas Disponibles</h2>
+            </div>
+            <p class="subtitle">Completa las tareas para recibir tu pago inmediato en tu balance.</p>
+            <div class="task-container">
+                <div class="card task-card" id="task-box">
+                    <div class="task-header">
+                        <span class="task-payout">Paga: $0.50</span>
+                        <span class="task-category">IA Operativa</span>
+                    </div>
+                    <h3>Validar respuesta de Chatbot</h3>
+                    <p class="task-instruction">Lee el texto y determina si la respuesta de la IA fue educada y correcta:</p>
+                    <div class="task-workground">
+                        <p class="prompt-text"><strong>Pregunta:</strong> ¿Tienen soporte los domingos?</p>
+                        <p class="response-text"><strong>IA:</strong> Hola. No trabajamos los domingos, regrese el lunes.</p>
+                    </div>
+                    <form id="taskForm" class="task-actions">
+                        <label><input type="radio" name="evaluation" value="correct" required> Es correcta y educada</label>
+                        <label><input type="radio" name="evaluation" value="bad_tone"> Es correcta pero el tono es rudo/seco</label>
+                        <label><input type="radio" name="evaluation" value="incorrect"> La información es incorrecta</label>
+                        <button type="submit" class="btn btn-primary">Enviar y Cobrar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HARDWARE ── -->
+        <section id="view-hardware" class="hidden">
+            <div class="section-header">
+                <button class="btn-back" onclick="switchView('view-hub')">← Volver</button>
+                <h2>Financiamiento de Laptops</h2>
+            </div>
+            <div class="card traction-card">
+                <h3>Tu Tracción de Ingresos</h3>
+                <p class="subtitle">Para optar por una laptop reacondicionada, debes generar un acumulado de $50.00.</p>
+                <div class="traction-status">
+                    <span id="traction-text">Progreso: $0.00 / $50.00</span>
+                    <div class="progress-bar">
+                        <div id="traction-progress" class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div id="hardware-status-msg" class="alert alert-info">
+                    Cargando tu progreso...
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DASHBOARD / PERFIL ── -->
+        <section id="view-dashboard" class="hidden">
+            <div class="section-header">
+                <button class="btn-back" onclick="switchView('view-hub')">← Volver</button>
+                <h2>Mi Perfil</h2>
+            </div>
+            <div class="profile-header">
+                <div class="cover-photo" id="cover-photo-bg">
+                    <label for="cover-upload" class="btn-edit-cover">📷 Cambiar Portada</label>
+                    <input type="file" id="cover-upload" accept="image/*" hidden onchange="updateImage(this, 'cover-photo-bg')">
+                </div>
+                <div class="profile-avatar-container">
+                    <div class="profile-avatar" id="profile-avatar-img">
+                        <span id="user-initials-large">U</span>
+                    </div>
+                    <label for="avatar-upload" class="btn-edit-avatar">📷</label>
+                    <input type="file" id="avatar-upload" accept="image/*" hidden onchange="updateImage(this, 'profile-avatar-img')">
+                </div>
+                <div class="profile-main-info">
+                    <h2 id="profile-name">Usuario</h2>
+                    <p class="subtitle">Nivel 2: Usuario Activo</p>
+                    <div class="profile-links">
+                        <div class="input-icon-wrapper">
+                            <span>💼</span>
+                            <input type="url" id="link-linkedin" placeholder="Tu LinkedIn" class="input-light">
+                        </div>
+                        <div class="input-icon-wrapper">
+                            <span>🌐</span>
+                            <input type="url" id="link-portfolio" placeholder="Tu Portafolio" class="input-light">
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="saveLinks()">Guardar Links</button>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dashboard-col">
+                    <div class="card">
+                        <h3>📊 Mi Actividad</h3>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-number" id="stat-courses">0</span>
+                                <span class="stat-label">Cursos</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number" id="stat-tasks">0</span>
+                                <span class="stat-label">Tareas</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number" id="stat-jobs">0</span>
+                                <span class="stat-label">Trabajos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🏅 Habilidades Verificadas</h3>
+                        <div class="skills-container" id="skills-list"></div>
+                    </div>
+                </div>
+                <div class="dashboard-col">
+                    <div class="card">
+                        <h3>💳 Billetera y Pagos</h3>
+                        <form id="payoutForm" class="data-form">
+                            <label for="payout-method">Método de Retiro</label>
+                            <select id="payout-method" required class="select-light">
+                                <option value="mobile_money">Pago Móvil</option>
+                                <option value="bank_transfer">Transferencia Bancaria</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="platform_credit">Crédito Plataforma</option>
+                            </select>
+                            <label for="payout-detail">Datos (Teléfono, Cuenta o Wallet)</label>
+                            <input type="text" id="payout-detail" required placeholder="Ingresa tus datos aquí">
+                            <button type="submit" class="btn btn-primary">Guardar Billetera</button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <h3>📜 Historial de Ingresos</h3>
+                        <div class="history-list" id="history-container"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
