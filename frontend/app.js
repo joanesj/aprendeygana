@@ -1,7 +1,14 @@
 // ══════════════════════════════════════════════════════════════
 //  CONFIGURACIÓN — Cambia esta URL cuando subas el backend
 // ══════════════════════════════════════════════════════════════
-const API_BASE_URL = "http://localhost:8000/v1";  // Puerto de FastAPI/Uvicorn
+// Detecta automáticamente el entorno:
+// - Si la página corre en localhost/127.0.0.1 → usa el backend local
+// - Si corre en Render (o cualquier otro dominio) → usa el backend de Render
+const isLocal = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+const API_BASE_URL = isLocal
+    ? "http://localhost:8000/v1"
+    : "https://aprendeygana.onrender.com/v1";
 
 // ── Estado global de la sesión ────────────────────────────────
 let userState = {
